@@ -32,17 +32,18 @@ class App extends Component {
               <Image src={logo} size='small' />
           </div>
         
-          <UserContainer/>
+          <div class="ui input">
+            <input type="text" placeholder="Search..." />
+            <button class="ui button">Buscar</button>
+          </div>
+
+          <UserContainer />
     
-          <Divider hidden/>
           <Divider/>
-          <Divider hidden/>
           
           <ServiceContainer/>
           
-          <Divider hidden/>
           <Divider/>
-          <Divider hidden/>
           
           <MapContainer/>
 

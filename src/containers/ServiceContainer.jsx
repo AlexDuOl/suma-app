@@ -1,91 +1,33 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Container, Card, Image, Header, Divider, Icon } from 'semantic-ui-react'
-import unidad from '../images/toyota.png'
-import operador from '../images/operador.jpg'
+import ServiceComponent from '../components/ServiceComponent'
+
 
 class ServiceContainer extends Component {
+
+    state = {
+        operatorData: [],
+        unidadData: []
+    }
+    
     componentDidMount(){
         axios.get('https://api.sumaenlinea.mx/bitacoras?id_servicio_especial=54067')
         .then(result =>{
-            console.log(result.data);
+            const operatorData = result.data[0].data.relations.operador.data.attributes;
+            const unidadData = result.data[0].data.relations.unidad.data.attributes;
+            this.setState({
+                operatorData,
+                unidadData
+            })
+
         }).catch(console.log)
     }
 
     render() {
+        const { operatorData, unidadData } = this.state;
+
         return (
-            <div className="generalContainer">
-                <Container fluid>
-                    <Header as="h3" textAlign="center">Datos del servicio</Header>
-
-                    <div className="sectionContainer">
-                        <div className="cardContainer">
-                            <Card.Content>
-                                <Card.Header as="h4">
-                                    <Icon name='map marker alternate' color='orange' />
-                                    Punto de partida
-                                </Card.Header>
-                            
-                                <Card.Description>
-                                    <p><span className="blackText">Fecha: </span>21-Feb-21</p>
-                                    <p><span className="blackText">Hora: </span>09:00:00</p>
-                                    <p><span className="blackText">Lugar: </span>Bernardo de Balbuena 566</p>
-                                    <p><span className="blackText">Dirección: </span>Bernardo de Balbuena 566</p>
-                                    <p><span className="blackText">Comentarios: </span>Puerta colos negro</p>
-                                </Card.Description>
-                            </Card.Content>
-                        </div>
-
-                        <div className="cardContainer">
-                            <Card.Content>
-                                <Card.Header as="h4">
-                                    <Icon name='map marker alternate' color='orange' />
-                                    Punto de Destino
-                                </Card.Header>
-
-                                <Card.Description>
-                                    <p><span className="blackText">Fecha: </span>21-Feb-21</p>
-                                    <p><span className="blackText">Hora: </span>19:00:00</p>
-                                    <p><span className="blackText">Lugar: </span>Calle Broca 2605 Nave 4</p>
-                                    <p><span className="blackText">Dirección: </span>Calle Broca 2605 Nave 4</p>
-                                    <p><span className="blackText">Comentarios: </span>Cancel gris</p>
-                                </Card.Description>
-                            </Card.Content>
-                        </div>
-                    </div>
-
-                    <Divider hidden />
-                    <Divider hidden />
-
-                    <div className="sectionContainer">
-                        <div className="cardContainer">
-                            <Card.Content>
-                                <Card.Header as="h4">Unidad</Card.Header>
-                                
-                                <Image src={unidad} size='small' centered />
-
-                                <Card.Description>
-                                    <p><span className="blackText">Tipo: </span>Sprinter</p>
-                                    <p><span className="blackText">Capacidad: </span>20 personas</p>
-                                </Card.Description>
-                            </Card.Content>
-                        </div>
-                        
-                        <div className="cardContainer">
-                            <Card.Content>
-                                <Card.Header as="h4">Operador</Card.Header>
-
-                                <Image src={operador} size='small' centered />
-
-                                <Card.Description>
-                                    <p><span className="blackText">Nombre: </span>Jose de Jesus Hernández</p>
-                                    <p><span className="blackText">Celular: </span>321 1231234</p>
-                                </Card.Description>
-                            </Card.Content>
-                        </div>
-                    </div>
-                </Container>
-            </div>
+            <ServiceComponent operatorData={operatorData} unidadData={unidadData} />
         )
     }
 }

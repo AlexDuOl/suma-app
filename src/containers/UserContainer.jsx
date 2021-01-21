@@ -4,16 +4,34 @@ import UserComponent from '../components/UserComponent'
 
 class UserContainer extends Component {
 
+    state = {
+        clientData: [],
+        sellerData: [],
+        supplierData: []
+    }
+
     componentDidMount(){
         axios.get('https://api.sumaenlinea.mx/especiales/54067')
         .then(result =>{
-            console.log(result.data);
+            const clientData = result.data.data.attributes;
+            const sellerData = result.data.data.relations.usuario.data.attributes;
+            const supplierData = result.data.data.relations.proveedor.data.attributes;
+
+            this.setState({
+                clientData,
+                sellerData,
+                supplierData
+            })
+
         }).catch(console.log)
     }
 
     render(){
+
+        const { clientData, sellerData, supplierData } = this.state;
+
         return (
-            <UserComponent clientName={result.data.attributes.contactoNombre} sellerName={result.data.relations.user.data.attributes.nombre}/>
+            <UserComponent  clientData={clientData} sellerData={sellerData} supplierData={supplierData}/>
         );
     } 
 }
