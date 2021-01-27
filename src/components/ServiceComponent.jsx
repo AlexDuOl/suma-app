@@ -1,10 +1,8 @@
 import React from 'react'
 import { Container, Card, Image, Header, Divider, Icon } from 'semantic-ui-react'
-import unidad from '../images/toyota.png'
-import operador from '../images/operador.jpg'
 
 const ServiceComponent = ({ operatorData, unidadData }) => {
-    console.log(unidadData);
+    
     return (
         <div className="generalContainer">
             <Container fluid>

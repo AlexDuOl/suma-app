@@ -7,23 +7,10 @@ import { Button, Divider, Image } from 'semantic-ui-react'
 import UserContainer from './containers/UserContainer'
 import ServiceContainer from './containers/ServiceContainer'
 import MapContainer from './containers/MapContainer'
+import HomeContainer from './containers/HomeContainer';
 
 
 class App extends Component {
-
-  constructor(props){
-    super(props);
-
-    this.state = {
-      counter: 0
-    }
-  }
-
-  aumentar(){
-    this.setState({
-      counter: this.state.counter + 1
-    })
-  }
 
   render() {
     return (
@@ -32,10 +19,7 @@ class App extends Component {
               <Image src={logo} size='small' />
           </div>
         
-          <div class="ui input">
-            <input type="text" placeholder="Search..." />
-            <button class="ui button">Buscar</button>
-          </div>
+          <HomeContainer />
 
           <UserContainer />
     
